@@ -49,6 +49,11 @@
                 <div class="form-group">
                     <input type="text" name="price" id="price" class="form-control" placeholder="Enter Price">
                 </div>
+
+                <div class="form-group">
+                    <input type="submit" name="Upload File" id="file" class="form-control" placeholder="Choose File">
+                </div>
+
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
 

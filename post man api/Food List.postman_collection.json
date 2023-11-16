@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "548814e1-2947-4e28-97a9-629d955c7c20",
+		"name": "Food List",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29087643"
+	},
+	"item": [
+		{
+			"name": "Food list | GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/foodlist",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"foodlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create foodlist | POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/foodlist?name=New Food LIst&itemname=Item Name&description=This is new foodlist&price=text",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"foodlist"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "New Food LIst"
+						},
+						{
+							"key": "itemname",
+							"value": "Item Name"
+						},
+						{
+							"key": "description",
+							"value": "This is new foodlist"
+						},
+						{
+							"key": "price",
+							"value": "text"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "foodlist | DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/foodlist/{id}?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"foodlist",
+						"{id}"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						},
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "foodlist | UPDATE",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "RedBull",
+							"type": "text"
+						},
+						{
+							"key": "itemname",
+							"value": "Cold Drink",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "ddddddddddddddddddddddddd",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "2200",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/foodlist/{id}?id=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"foodlist",
+						"{id}"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

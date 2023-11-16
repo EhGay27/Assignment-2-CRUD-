@@ -22,11 +22,13 @@ Route::get('/foodlist/create', function () {
     return view('create');
 });
 
+Route::get('/', function () {
+    return view('login');
+});
 
 
 Route::get('/foodlist/{foodlist}/edit', [FoodlistController::class, 'edit'])->name('foodlist.edit');
 Route::put('/foodlist/{foodlist}', [FoodlistController::class, 'update'])->name('foodlist.update');
-
 Route::post('/foodlist/create', [FoodlistController::class, 'store']);
 Route::get('/foodlist', [FoodlistController::class, 'index']);
 
