@@ -11,17 +11,26 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    @vite('resources/css/app.css')
 
     <style>
         body {
             padding: 100px;
+
         }
     </style>
 
 </head>
 
-<body class="antialiased">
+@extends('layouts.food')
+@section('content')
 
+<body class="antialiased">
+    @if(session('success'))
+    <div class="bg-green-200 p-4 rounded-md mb-4">
+        {{ session('success') }}
+    </div>
+    @endif
 
     <div class="flex font-sans">
         <div class="flex-none w-48 relative">
@@ -31,13 +40,16 @@
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
-                        <h3 class="p-2">Food_List</h3>
+                        <h1 class="p-2">Food_List</h1>
+
+
+
                         <a href="{{ url ('/foodlist/create')}}">
                             <button class="btn btn-primary btn-sm float-right mb-2"> <i class="fa-solid fa-circle-plus fa-2xs"></i>Add Product</button>
                         </a>
 
 
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover text-center ">
                             <thead>
 
                                 <tr>
@@ -59,13 +71,13 @@
                                     <td>
                                         <div class="d-flex justify-content-center">
                                             <a href="/foodlist/{{$foodlist->id}}/edit">
-                                                <button type="button" class="btn btn-success btn-sm">Edit</button>
+                                                <button type="button" class="bg-green-400 text-white px-3 py-1 rounded hover:bg-green-400">Edit</button>
                                             </a>
 
                                             <form action="/foodlist/{{$foodlist->id}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-danger ms-2 btn-sm" type="submit">
+                                                <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-500" type="submit">
                                                     Delete
                                                 </button>
                                             </form>
@@ -81,6 +93,7 @@
 
 
                 </div>
+                @endsection
 
 </body>
 

@@ -22,14 +22,13 @@ Route::get('/foodlist/create', function () {
     return view('create');
 });
 
-Route::get('/', function () {
-    return view('login');
+Route::get('/product', function () {
+    return view('product');
 });
 
 
 Route::get('/foodlist/{foodlist}/edit', [FoodlistController::class, 'edit'])->name('foodlist.edit');
 Route::put('/foodlist/{foodlist}', [FoodlistController::class, 'update'])->name('foodlist.update');
-Route::post('/foodlist/create', [FoodlistController::class, 'store']);
+Route::post('/foodlist/create', [FoodlistController::class, 'store'])->name('/foodlist/create');
 Route::get('/foodlist', [FoodlistController::class, 'index']);
-
 Route::delete('foodlist/{id}', [FoodlistController::class, 'destroy'])->name('foodlist#delete');

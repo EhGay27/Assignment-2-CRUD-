@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Foodlist;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+//use Illuminate\Support\Facades\DB;
 
 class FoodlistController extends Controller
 {
@@ -13,7 +14,8 @@ class FoodlistController extends Controller
      */
     public function index()
     {
-        $Foodlists = Db::select('select * from foodlists');
+        //  $Foodlists = Db::select('select * from foodlists');
+        $Foodlists = foodlist::paginate(10);
         return view('Foodlist', [
             'Foodlists' => $Foodlists
         ]);
@@ -21,6 +23,7 @@ class FoodlistController extends Controller
 
     public function get_foodlist()
     {
+
         $foodlists = Foodlist::get();
         return response()->json([
             'message' => 'Food List',
@@ -41,6 +44,27 @@ class FoodlistController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'itemname' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|string',
+        ]);
+
+        /* if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'status' => 'error',
+                'errors' => $validator->errors(),
+            ], 422);
+        }*/
+
+        if ($validator->fails()) {
+            return redirect()->route('/foodlist/create')
+                ->with('error', 'Validation failed')
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $newFoodlist = new Foodlist;
         $newFoodlist->name = $request->name;
@@ -48,12 +72,16 @@ class FoodlistController extends Controller
         $newFoodlist->description = $request->description;
         $newFoodlist->price = $request->price;
         $newFoodlist->save();
-        return redirect('/foodlist');
+        return redirect('/foodlist')
+            ->with('success', 'Cookie Created');
     }
 
 
     public function create_foodlist(Request $request)
     {
+
+
+
         $newFoodlist = new Foodlist;
         $newFoodlist->name = $request->name;
         $newFoodlist->itemname = $request->itemname;
@@ -86,6 +114,19 @@ class FoodlistController extends Controller
 
     public function update(Request $request, Foodlist $foodlist)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'itemname' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('foodlist.edit', $foodlist)
+                ->with('error', 'Validation failed')
+                ->withErrors($validator)
+                ->withInput();
+        }
         $data = $request->validate([
             'name' => 'required',
             'itemname' => 'required',
