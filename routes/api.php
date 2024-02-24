@@ -3,6 +3,7 @@
 use App\Http\Controllers\FoodlistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,15 +20,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("/foodlist", [FoodlistController::class, 'get_foodlist']);
+Route::get("/foodlist", function () {
+    return response()->json([
+        'message' => 'Food List API'
+    ]);
+});
 
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::get("/foodlist", [FoodlistController::class, 'get_foodlist']);
 Route::post("/foodlist", [FoodlistController::class, 'create_foodlist']);
 
-Route::delete("foodlist/{id}", [FoodlistController::class, 'delete_foodlist']);
+Route::group(['middleware' => 'jwt'], function () {
 
-Route::put('/foodlist/{foodlist}', [FoodlistController::class, 'update_foodlist']);
-/**Route::get("/test_foodlist", function () {
-    return response()->json([
-        'message' => 'Foodlists API'
-    ]);
-});*/
+    // Route::delete("/foodlist/{id}", [FoodlistController::class, 'delete_foodlist']);
+    // Route::put('/foodlist/{foodlist}', [FoodlistController::class, 'update_foodlist']);
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
